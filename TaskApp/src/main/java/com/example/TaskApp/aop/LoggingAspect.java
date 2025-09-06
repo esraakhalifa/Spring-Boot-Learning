@@ -12,19 +12,19 @@ import org.springframework.stereotype.Component;
 public class LoggingAspect {
 
     // Logs before every repository, service, or controller method
-    @Before("execution(* com.example.TaskApp..*(..))")
+    @Before("within(* com.example.TaskApp..*(..))")
     public void logBefore(JoinPoint joinPoint) {
         System.out.println("➡️ Executing: " + joinPoint.getSignature());
     }
 
     // Logs after a successful method execution
-    @AfterReturning(pointcut = "execution(* com.example.TaskApp..*(..))", returning = "result")
+    @AfterReturning(pointcut = "within(* com.example.TaskApp..*(..))", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
         System.out.println("✅ Completed: " + joinPoint.getSignature() + " | Returned: " + result);
     }
 
     // Logs if a method throws an exception
-    @AfterThrowing(pointcut = "execution(* com.example.TaskApp..*(..))", throwing = "ex")
+    @AfterThrowing(pointcut = "within(* com.example.TaskApp..*(..))", throwing = "ex")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable ex) {
         System.out.println("❌ Exception in: " + joinPoint.getSignature() + " | Message: " + ex.getMessage());
     }
